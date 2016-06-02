@@ -1,1 +1,1 @@
-Files in this folder have been removed from the board.
+Files in this folder have been removed from the board if the "actually_delete_removed_flyers" setting is set to the default value of false.
