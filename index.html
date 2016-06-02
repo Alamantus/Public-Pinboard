@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Public-pinboard by Alamantus</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Public-pinboard</h1>
+          <h2>A digital community cork bulletin board that anyone can add to or remove from.</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/Alamantus/Public-Pinboard/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/Alamantus/Public-Pinboard/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/Alamantus/Public-Pinboard" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a id="public-pinboard" class="anchor" href="#public-pinboard" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Public Pinboard</h1>
+
+<p>A digital community cork bulletin board that anyone can add to or remove from.</p>
+
+<h1>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h1>
+
+<p>Just upload the whole thing to your web server as is. If you put it in a subdirectory that is not root, update the <code>PINBOARD_DIRECTORY</code> variable in the <code>config.php</code> file to point to where you uploaded it with a leading and trailing slash (i.e. <code>'/pinboard/'</code>).</p>
+
+<p>Change any other settings you want in the <code>config.php</code> file to suit your needs. They're all pretty clearly labeled and/or commented.</p>
+
+<p>Once that's all set up, just set the server permissions (chmod) of the whole <code>posts/</code> directory to 700 to prevent people from seeing the files created there. If you don't care if people see the <code>.post</code> files that are created and any removed posts, then I guess you don't have to set those permissions!</p>
+
+<h1>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h1>
+
+<p>Once it's set up how you want it, all you need to do is start posting stuff! Posted flyers display from newest to oldest, with admin messages displayed first in reverse-alphabetical order. Admin messages do not have a "Remove" button, but all other flyers can be removed by anyone at any time.</p>
+
+<p>New flyers are created in the <code>posts/</code> directory, and if a flyer is too old, it will be removed automatically. If you have the <code>actually_delete_removed_flyers</code> setting to the default value of <code>false</code>, then all removed flyers can be found in the <code>posts/removed/</code> directory on your server. If you get a lot of traffic, you might want to think about cleaning this folder out every now and again. If <code>actually_delete_removed_flyers</code> is set to <code>true</code>, however, then the files will be deleted from your server and not be retrievable.</p>
+
+<p>To add an admin message, create a post then edit it on your server to something else that starts with an underscore (<code>_</code>). To change an admin message, just edit the JSON file on the server. Be sure to escape (<code>\"</code>) any double quotes (<code>"</code>) you use in your message so it doesn't interfere with the JSON formatting!</p>
+
+<h1>
+<a id="disclaimer" class="anchor" href="#disclaimer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Disclaimer</h1>
+
+<p>This project has no security and was not created with security in mind. It's a public board that anyone can tamper with. If you need more security, you'll have to build it yourself.</p>
+
+<h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h1>
+
+<p><a href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"></a><br>Public Pinboard by <a href="https://github.com/Alamantus">Robbie Antenesse</a> is licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+        </section>
+
+        <footer>
+          Public-pinboard is maintained by <a href="https://github.com/Alamantus">Alamantus</a><br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
