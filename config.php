@@ -21,7 +21,7 @@ $SETTINGS = array(
         'post_instructions' => '<p>The space for each flyer is limited, so keep it short and sweet, but be sure to let people know how to contact you! HTML is not allowed, so get creative with your words!</p>
                                 <p>Only the "Your Flyer" field is required, but if you leave the "Your Name/Identity" and "Headline" fields blank, they will automatically be listed as "anonymous" and "Post", respectively.</p>',
 
-        'post_warning' => '<strong>NOTE:</strong> Flyers live for 7 days before they are permanently and irreversibly deleted. You cannot edit your flyer after it has been posted, and anyone can remove it. With any luck, nobody but you will remove it, but just be sure to check back to make sure your flyer is still there if nobody has contacted you.',
+        'post_warning' => '<strong>NOTE:</strong> Flyers live for 14 days before they are permanently and irreversibly deleted. You cannot edit your flyer after it has been posted, and anyone can remove it. With any luck, nobody but you will remove it, but just be sure to check back to make sure your flyer is still there if nobody has contacted you.',
 
         'default_poster_name' => 'anonymous',
 
