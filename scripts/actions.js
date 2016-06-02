@@ -35,9 +35,13 @@ function removeFlyer(id) {
     
     if (confirm("Do you promise that you are not being a huge jerk by removing this flyer? It cannot be recovered once it is removed!\n(Removing something that is not yours unless it is offensive or does not belong here constitutes \"being a huge jerk\")")) {
         var contentToSend = "id=" + escape(id);
-        $.post("scripts/remove_flyer.php", contentToSend, function( data ) {
-            console.log( data );
-            document.getElementById("flyersContainer").removeChild(flyerToRemove);
+        $.post("scripts/remove_flyer.php", contentToSend, function(data) {
+            console.log(data);
+            if (data.indexOf("Error:") === -1) {
+                document.getElementById("flyersContainer").removeChild(flyerToRemove);
+            } else {
+                alert(data);
+            }
         });
     } else {
         return;

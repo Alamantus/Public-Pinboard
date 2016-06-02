@@ -36,6 +36,10 @@ $SETTINGS = array(
         'max_flyer_length' => 200,
 
         'actually_delete_removed_flyers' => false,   // If set to false, removed flyers are instead moved to the "removed" directory in the posts folder.
+
+        'post_flood_limit' => 30,   // Number of seconds a user must wait between posting flyers.
+
+        'remove_flood_limit' => 15    // Number of seconds a user must wait between removing flyers.
 );
 
 $MESSAGES = array(
@@ -51,6 +55,12 @@ $MESSAGES = array(
 
     'error_delete_failed' => "Could not delete.",
 
-    'error_remove_not_specified' => "Something's missing, so the flyer didn't get deleted."
+    'error_remove_not_specified' => "Something's missing, so the flyer didn't get deleted.",
+
+    'wait_post_flood_limit' => "You must wait " . $SETTINGS['post_flood_limit'] . " seconds before trying to posting another flyer.",
+
+    'wait_remove_flood_limit' => "You must wait " . $SETTINGS['remove_flood_limit'] . " seconds before trying to remove another flyer.",
+
+    'error_return_link_text' => "Go back"
 );
 ?>
