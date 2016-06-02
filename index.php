@@ -1,3 +1,7 @@
+<?php
+require('config.php');
+?>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -5,21 +9,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Community Bulletin Board</title>
+
+    <!-- Bootstrap stylesheets -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Pinboard Stylesheet -->
+    <link rel="stylesheet" href="<?php echo PINBOARD_DIRECTORY; ?>styles/main.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
 <div class="container">
     <div class="jumbotron">
-        <h2>Public Classifieds Bulletin Board</h2>
-        <p class="lead">Need help for the jam? Want to help someone with the jam? <a href="#flyerForm">Post a flyer here</a>!</p>
+        <h2><?php echo BOARD_NAME; ?></h2>
+        <p class="lead">
+            <?php echo BOARD_LEAD; ?><br>
+            <a href="#flyerForm"><?php echo LINK_TEXT; ?></a>
+        </p>
         <div class="spacer"></div>
 		<div id="flyersContainer" class="row">	<!--Buttons and Twitter Div-->
             <?php
-            $posts = scandir("posts", SCANDIR_SORT_DESCENDING);
+            // This trick removes the dot and other unwanted directories from scandir. Found at http://php.net/manual/en/function.scandir.php#107215
+            $path = ROOT_PATH . PINBOARD_DIRECTORY . POST_DIRECTORY;
+            $posts = array_diff(scandir($path, SCANDIR_SORT_DESCENDING), array('..', '.', 'removed'));
             
             for ($i = 0; $i < count($posts); $i++) {
-                $post = file_get_contents($posts[$i]);
+                $post = file_get_contents($path . $posts[$i]);
                 $content = json_decode($post);
+
+                // If the post is younger than the life specified in config.php or is an admin "_" post, display it.
+                if ($content['time'] > time() - (POST_LIFE_IN_DAYS * 24 * 60 * 60) || (strpos($posts[$i], '_') !== false)) {
             ?>
                 <div class="col-lg-3 col-md-4 col-sm-6" id="flyer<?php echo $content['time']; ?>">
                     <div class="panel panel-default feature">
@@ -31,7 +57,9 @@
                         </div>
                         <div class="panel-footer small">
                             Posted <?php echo date('F jS, Y', $content['time']); ?> by <?php echo $content['poster']; ?>
-                            <?php if (intval($content['time']) > 0) { ?>
+                            <?php
+                                // Admin messages have a time of 0000000000, so the "remove" option is not included.
+                                if (intval($content['time']) > 0) { ?>
                                 <br>
                                 <button type="button" class="btn btn-link small" onclick="removeFlyer(<?php echo $content['time']; ?>)">Remove Flyer</button>
                             <?php } ?>
@@ -39,6 +67,10 @@
                     </div>
                 </div>	<!-- column -->
             <?php
+                } else {
+                    // Otherwise, if it's too old, remove it.
+                    rename($path . $posts[$i], $path . "removed/" . $posts[$i]);
+                }
             }
             ?>
 	    </div>	<!--Buttons and Twitter Div-->
@@ -47,10 +79,9 @@
 
     <div class="row marketing">
 		<div class="page-header well">
-			<a name="flyerForm"></a><h1>Put Up a Flyer</h1>
+			<a name="flyerForm"></a><h1><?php echo POST_HEADING; ?></h1>
             <div class="well well-sm half-width">
-            <p>The space for each flyer is limited, so keep it short and sweet, but be sure to let people know how to contact you! HTML is not allowed, so get creative with your words!</p>
-            <p>Only the "Your Flyer" field is required, but if you leave the "Your Name/Identity" and "Headline" fields blank, they will automatically be listed as "anonymous" and "Post", respectively.</p>
+                <?php echo POST_INSTRUCTIONS; ?>
             </div>
             <form id="flyerPostForm">
                 <label>Your Name/Identity <small>(20 characters max)</small><br />
@@ -59,10 +90,24 @@
                 <input type="text" id="headlineTextbox" name="headline" maxlength="50" size="25" style="padding:4px;" /></label><br />
                 <label><strong style="color: red;">*</strong> Your Flyer <small>(200 characters max, no formatting)</small><br />
                 <textarea id="flyerTextbox" name="flyerContent" maxlength="200" style="padding:4px;min-width: 250px; max-width:350px;height:100px;"></textarea></label><br />
-                <p class="small half-width"><strong>NOTE:</strong> Flyers live for 7 days before they are permanently and irreversibly deleted. You cannot edit your flyer after it has been posted, and anyone can remove it. With any luck, nobody but you will remove it, but just be sure to check back to make sure your flyer is still there if nobody has contacted you.</p>
+                <p class="small half-width"><?php echo POST_WARNING; ?></p>
                 <button type="button" style="padding:4px" id="submitButton" onclick="postFlyer()" class="pointer">Post Flyer</button>
             </form>
 		</div>	
     </div>	<!-- row -->
     
-    <script src="ajax/actions.js"></script>
+
+    <div class="footer">
+        <p>Built with <a href="http://getbootstrap.com/" target="_blank" title="Bootstrap Website">Twitter Bootstrap</a> by <a href="https://github.com/Alamantus" target="_blank">Robbie Antenesse</a></p>
+    </div>
+
+</div> <!-- /container -->
+
+<!-- jQuery (necessary for Bootstrap's JavaScript) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<!-- AJAX actions -->
+<script src="<?php echo PINBOARD_DIRECTORY . SCRIPTS_DIRECTORY; ?>actions.js"></script>
+</body>
+</html>
