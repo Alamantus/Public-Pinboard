@@ -90,7 +90,7 @@ require('config.php');
             <div class="well well-sm half-width">
                 <?php echo $SETTINGS['post_instructions']; ?>
             </div>
-            <form id="flyerPostForm" method="post" action="<?php echo PINBOARD_DIRECTORY . SCRIPTS_DIRECTORY; ?>post_flyer.php">
+            <form id="flyerPostForm" method="post" action="<?php echo PINBOARD_DIRECTORY; ?>scripts/post_flyer.php">
                 <label>Your Name/Identity <small>(<?php echo $SETTINGS['max_name_length']; ?> characters max)</small><br />
                 <input type="text" id="posterTextbox" name="poster" maxlength="<?php echo $SETTINGS['max_name_length']; ?>" size="20" style="padding:4px;" /></label><br />
                 <label>Headline <small>(<?php echo $SETTINGS['max_headline_length']; ?> characters max)</small><br />
@@ -98,7 +98,7 @@ require('config.php');
                 <label><strong style="color: red;">*</strong> Your Flyer <small>(<?php echo $SETTINGS['max_flyer_length']; ?> characters max, no formatting)</small><br />
                 <textarea id="flyerTextbox" name="flyer" maxlength="<?php echo $SETTINGS['max_flyer_length']; ?>" style="padding:4px;min-width: 250px; max-width:350px;height:100px;"></textarea></label><br />
                 <p class="small half-width"><?php echo $SETTINGS['post_warning']; ?></p>
-                <button type="submit" style="padding:4px" id="submitButton" class="pointer">Post Flyer</button>
+                <button type="button" style="padding:4px" id="submitButton" onclick="postFlyer();" class="pointer">Post Flyer</button>
             </form>
 		</div>	
     </div>	<!-- row -->

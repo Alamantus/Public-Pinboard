@@ -9,7 +9,7 @@ define('PINBOARD_DIRECTORY', '/');
 // The directory where the posts will be saved. I personally wouldn't change it because it already makes sense, but you can do what you want.
 define('POST_DIRECTORY', 'posts/');
 
-const SETTINGS = array(
+$SETTINGS = array(
         'board_name' => 'Public Pinboard',
 
         'board_lead' => 'Use this board to post public flyer!',
@@ -23,6 +23,10 @@ const SETTINGS = array(
 
         'post_warning' => '<strong>NOTE:</strong> Flyers live for 7 days before they are permanently and irreversibly deleted. You cannot edit your flyer after it has been posted, and anyone can remove it. With any luck, nobody but you will remove it, but just be sure to check back to make sure your flyer is still there if nobody has contacted you.',
 
+        'default_poster_name' => 'anonymous',
+
+        'default_post_headline' => 'Post',
+
         'post_life_in_days' => 14,
 
         'max_name_length' => 20,
@@ -31,6 +35,22 @@ const SETTINGS = array(
 
         'max_flyer_length' => 200,
 
-        'actually_delete_removed_flyers' => false   // If set to false, removed flyers are instead moved to the "removed" directory in the posts folder.
+        'actually_delete_removed_flyers' => false,   // If set to false, removed flyers are instead moved to the "removed" directory in the posts folder.
+);
+
+$MESSAGES = array(
+    'error_post_creation_failed' => "Something went wrong. Please go back and try again.",
+
+    'error_post_missing_content' => "Something's missing, so the flyer didn't get posted. Please go back and try again.",
+
+    'removed_successfully' => "Removed successfully.",
+
+    'error_remove_failed' => "Could not remove.",
+
+    'deleted_successfully' => "Deleted successfully.",
+
+    'error_delete_failed' => "Could not delete.",
+
+    'error_remove_not_specified' => "Something's missing, so the flyer didn't get deleted."
 );
 ?>

@@ -2,7 +2,7 @@
 require('../config.php');
 require('helpers.php');
 
-if (isset($_POST['flyer'])){
+if (isset($_POST['flyer']) && $_POST['flyer']){
     $flyer = $_POST['flyer'];
     $flyer = Clean_Text($flyer);
     
@@ -11,6 +11,13 @@ if (isset($_POST['flyer'])){
     
     $headline = $_POST['headline'];
     $headline = Clean_Text($headline);
+
+    if ($poster == "") {
+        $poster = $SETTINGS['default_poster_name'];
+    }
+    if ($headline == "") {
+        $headline = $SETTINGS['default_post_headline'];
+    }
     
     $time = time();
     
@@ -20,11 +27,11 @@ if (isset($_POST['flyer'])){
     if (file_put_contents(ROOT_PATH . PINBOARD_DIRECTORY . POST_DIRECTORY . $time . '.post', $post_json)) {
         header('Location: ' . PINBOARD_DIRECTORY);
     } else {
-        echo "Something went wrong. Please go back and try again.";
+        echo $MESSAGES['error_post_creation_failed'];
     }
 
 }
 else {
-    echo "Something's missing, so the flyer didn't get posted. Please go back and try again.";
+    echo $MESSAGES['error_post_missing_content'];
 }
 ?>

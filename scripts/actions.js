@@ -1,3 +1,34 @@
+function postFlyer() {
+    console.log("Attempting to post...");
+    var poster = document.getElementById("posterTextbox").value;
+    var headline = document.getElementById("headlineTextbox").value;
+    var flyer = document.getElementById("flyerTextbox").value;
+    var button = document.getElementById("submitButton");
+    var form = document.getElementById("flyerPostForm");
+    
+    if (flyer != "") {
+        button.disabled = true;
+
+        if (flyer.length > 200) {
+            flyer = flyer.substr(0, 200);
+        }
+        if (poster.length > 20) {
+            poster = poster.substr(0, 20);
+        }
+        if (headline.length > 50) {
+            headline = headline.substr(0, 50);
+        }
+
+        document.getElementById("posterTextbox").value = poster;
+        document.getElementById("headlineTextbox").value = headline;
+        document.getElementById("flyerTextbox").value = flyer;
+
+        form.submit();
+    } else {
+        alert("Your flyer needs some content!");
+    }
+}
+
 function removeFlyer(id) {
     console.log("Attempting to remove...");
     var flyerToRemove = document.getElementById("flyer" + id.toString());

@@ -10,19 +10,19 @@ if (isset($_POST['id'])){
     
     if ($SETTINGS['actually_delete_removed_flyers']) {
         if (unlink($flyer)) {
-            echo "Deleted successfully.";
+            echo $MESSAGES['deleted_successfully'];
         } else {
-            echo "Could not delete.";
+            echo $MESSAGES['error_delete_failed'];
         }
     } else {
         if (rename($flyer, $path . "removed/" . $flyer_name)) {
-            echo "Removed successfully.";
+            echo $MESSAGES['removed_successfully'];
         } else {
-            echo "Could not remove.";
+            echo $MESSAGES['error_remove_failed'];
         }
     }
     
 } else {
-    echo "Something's missing, so the flyer didn't get deleted.";
+    echo $MESSAGES['error_remove_not_specified'];
 }
 ?>
